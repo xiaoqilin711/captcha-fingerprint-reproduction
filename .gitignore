@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+
+# Env / secrets
+.env
+*.pem
+
+# Reverse-engineering runtime artifacts — never commit these
+trace/
+work/
+assets/
+*.trace.jsonl
+_http_summary.json
+
+# Target scripts are vendor-proprietary. Fetch at runtime, do NOT vendor.
+collector.js
+frame.js
+challenge.js
+verify.js
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
