@@ -55,7 +55,7 @@ against the same session's capture**, not to "it looks right".
 
 ---
 
-## 3. Proof-of-work recovery (fully reproduced)
+## 3. Proof-of-work recovery (fully reproduced — primary result)
 
 The prehandle response issues a small challenge:
 
@@ -106,6 +106,10 @@ fingerprint profile, and diffing against the capture:
 | `eks` | first **44 / 44 bytes identical** |
 | `collect` (fingerprint section) | **88 / 96 bytes identical** |
 
+These figures are produced by `tools/diff_artifact.py`, so the byte-level claim
+is re-runnable rather than asserted: feed it the runtime-emitted value and the
+captured value and it reports the matching prefix and first divergence.
+
 The matching prefix covers the environment fingerprint (navigator, screen,
 viewport, feature flags, seeded crypto state). The remaining bytes are the
 **interaction trajectory** — the actual click sequence and timing — which is
@@ -143,6 +147,7 @@ Node" was never going to work:
 | `tools/obfuscation.py` | String-array extraction, top-level statement marks, rotation self-check analysis |
 | `tools/trace_http_summary.py` | Flatten a browser trace's HTTP request chain |
 | `tools/extract_assets.py` | Reassemble response bodies (scripts / JSON / images) from a trace |
+| `tools/diff_artifact.py` | Byte-level diff of two artifacts — produces the 44/44, 88/96 figures |
 
 ---
 

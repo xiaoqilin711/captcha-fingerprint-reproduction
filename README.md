@@ -29,10 +29,14 @@ could be trusted.
 
 ## What is reproduced
 
+The proof-of-work is the **primary result**: it is the only artifact that is
+fully reproduced *and* independently re-runnable and tested. The fingerprint
+work below is real but partial, and is listed second for that reason.
+
 | Artifact | Status | Evidence |
 |---|---|---|
-| Proof-of-work scheme | **Fully reproduced** | recovered `pow_answer` matches the capture; `md5(pow_answer) == target` holds |
-| Environment fingerprint (`eks` / `collect` prefix) | **Partially reproduced** | `eks` 44/44 bytes identical; `collect` fingerprint section 88/96 bytes identical |
+| Proof-of-work scheme | **Fully reproduced** | recovered `pow_answer` matches the capture; `md5(pow_answer) == target` holds — runnable: `python -m pow.reproduce_pow` |
+| Environment fingerprint (`eks` / `collect` prefix) | **Partially reproduced** | `eks` 44/44 bytes identical; `collect` fingerprint section 88/96 bytes identical — reproduced via `tools/diff_artifact.py` |
 | Collector execution path | **Reproduced** | obfuscated collector runs to completion and emits both artifacts |
 
 The interaction *trajectory* inside `collect` is session-specific and was not
@@ -50,7 +54,8 @@ reproduced — the honest line is drawn in [docs/case-study.md](docs/case-study.
 │   ├── disasm.py              # SpiderMonkey bytecode disassembler (custom VM)
 │   ├── obfuscation.py         # string-array / rotation self-check / statement-boundary analysis
 │   ├── trace_http_summary.py  # flatten a browser trace's HTTP request chain
-│   └── extract_assets.py      # reassemble response bodies from a trace
+│   ├── extract_assets.py      # reassemble response bodies from a trace
+│   └── diff_artifact.py       # byte-level diff of two artifacts (eks / collect)
 ├── tests/
 │   └── test_pow.py            # POW round-trip tests
 ├── docs/
